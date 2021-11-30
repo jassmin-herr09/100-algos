@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Scroll</title>
+    <style>
+    /* --------------------
+     Add your styling here
+     -------------------- */
+      .fakeBox {
+        height: 200px;
+        width: 200px;
+        background: red;
+        border: white;
+      }
+      
+    </style>
+</head>
+<body>
+<div class="container">
+    <!----------------------
+    Add your markup here
+    ------------------------>
+</div>
+<script>
+    /* --------------------
+     Add your code here
+    --------------------- */
+    
+    const container = document.querySelector('.container')
+  // calculate scroll height
+  function getScrollHeightHelper() {
+    return document.documentElement.scrollHeight
+  }
+  
+  // grab how much screen was already scrolled 
+  
+  function getScrollTop() {
+    return window.pageYOffset
+  }
+  
+  // clienHeight or innerHeight
+  
+  function getInnerHeight(){
+    return window.innerHeight
+  }
+  
+  // based on those variables decide if we are scrolled to the bottom
+  
+  function didIHitBottom() {
+    return getScrollTop() + getInnerHeight() >= getScrollHeightHelper() - 10
+  }
+  
+  
+  loadImages()
+  
+  // scroll listener
+  window.onscroll = () => {
+    if(!didIHitBottom()) return
+    
+    loadImages()
+  }
+
+  
+  
+  // fetch more data, generate more image,
+  function loadImages() {
+    const fakeBox = document.createElement('div')
+    fakeBox.className = 'fake-box'
+    
+    for(let i = 0; i < 10; i++) {
+        const fakeBox = document.createElement('div')
+      fakeBox.className = 'fakeBox'
+      container.appendChild(fakeBox)
+      fakeBox.textContent = 'fafaf'
+    }
+    
+  }
+</script>
+</body>
+</html>
